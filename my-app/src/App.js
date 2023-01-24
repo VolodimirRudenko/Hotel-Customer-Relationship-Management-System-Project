@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getAccounts } from './store/actions/usersActions';
+import { BrowserRouter } from 'react-router-dom';
 import { getRooms } from './store/actions/roomsActions';
+import Wrapper from './components/Wrapper';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAccounts());
     dispatch(getRooms());
   }, []);
 
   return (
-    <div className="App" />
+    <BrowserRouter>
+      <Wrapper />
+    </BrowserRouter>
   );
 }
 

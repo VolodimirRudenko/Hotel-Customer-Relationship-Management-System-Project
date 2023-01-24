@@ -5,4 +5,8 @@ export default {
   GET_ROOMS_SUCCESS: 'get_rooms_success',
   SHOW_NOTIFICATION: 'show_notification',
   CLEAR_NOTIFICATIONS: 'clear_notifications',
+  LOGIN: 'login',
+  LOGIN_SUCCESS: 'login_success',
+  LOGOUT: 'logout',
+  LOGOUT_SUCCESS: 'logout_success',
 };
