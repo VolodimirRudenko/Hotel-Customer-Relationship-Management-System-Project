@@ -1,16 +1,9 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { getRooms } from './store/actions/roomsActions';
 import Wrapper from './components/Wrapper';
+import './App.scss';
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getRooms());
-  }, []);
-
   return (
     <BrowserRouter>
       <Wrapper />

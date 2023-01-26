@@ -1,18 +1,21 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Button, Card, Checkbox, Col, Form, Input, Layout, Row } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAccountsState } from '../../store/selectors/usersSelectors';
+import { useHistory } from 'react-router-dom';
+import { getAccountsState, getIsAuthorized } from '../../store/selectors/usersSelectors';
 import { logIn } from '../../store/actions/usersActions';
 import './AuthPage.scss';
 
 const AuthPage = () => {
   const accounts = useSelector(getAccountsState);
+  const isAuthorized = useSelector(getIsAuthorized);
   const dispatch = useDispatch();
 
   const [form] = Form.useForm();
+  const history = useHistory();
 
   const isEmptyAccounts = useMemo(() => {
-    if (!accounts) return false;
+    if (!accounts) return true;
 
     return !Object.keys(accounts).length;
   }, [accounts]);
@@ -21,6 +24,10 @@ const AuthPage = () => {
     dispatch(logIn(values));
     form.resetFields();
   };
+
+  useEffect(() => {
+    if (isAuthorized) history.push('/');
+  }, [isAuthorized]);
 
   return (
     <Layout>
@@ -60,7 +67,7 @@ const AuthPage = () => {
                 <Input.Password />
               </Form.Item>
               <Form.Item name="remember" valuePropName="checked">
-                <Checkbox className="auth-checkbox">Remember me</Checkbox>
+                <Checkbox>Remember me</Checkbox>
               </Form.Item>
               <Form.Item wrapperCol={{ offset: 9, span: 6 }}>
                 <Button type="primary" htmlType="submit" disabled={isEmptyAccounts} className="auth-btn">
