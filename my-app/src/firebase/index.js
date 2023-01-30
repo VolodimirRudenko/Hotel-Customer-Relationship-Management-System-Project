@@ -26,3 +26,12 @@ export const getRoomsFirebase = async () => {
   const dbRooms = await roomsRef.once('value');
   return dbRooms.val().reduce((acc, room) => ({ ...acc, [room.id]: room }), {});
 };
+
+export const updateRoomFirebase = (id, data) => {
+  roomsRef
+    .orderByChild('id')
+    .equalTo(id)
+    .on('child_added', async (snapshot) => {
+      await snapshot.ref.update(data);
+    });
+};
